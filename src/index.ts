@@ -4,6 +4,7 @@ import { BASE_URL } from './urls/index';
 import { GamesParamsOptions } from './interfaces/games'
 import { MoviesParamsOptions } from './interfaces/movies';
 import { TVParamsOptions } from './interfaces/tv';
+import { MusicParamsOptions } from './interfaces/music';
 
 
 export const getGameReviews = async(options: GamesParamsOptions) =>{
@@ -143,6 +144,120 @@ export const getTVReviews = async(options: TVParamsOptions) =>{
   ).get();
   
   return Promise.all(reviews);
+};
+
+export const getMusicReviews = async(options: MusicParamsOptions) =>{
+  const res = await req(`${BASE_URL}/browse/albums/release-date/${options.filterBy}/${options.sortBy}`);
+  const $ = load(res);
+
+  let reviews = $('body.skybox-auto-collapse div#page table.clamp-list tbody tr').map((_index: number, element: CheerioElement) => 
+    new Promise(async(resolve, _reject) =>{
+        const $element = $(element);
+        const poster = $element.find('td.clamp-image-wrap a img').attr('src') || null;
+        let id = $element.find('td.clamp-summary-wrap a.title').attr('href') || null;
+        const title = $element.find('td.clamp-summary-wrap a.title h3').text() || null;
+        const _score = $element.find('td.clamp-summary-wrap div.clamp-score-wrap a.metascore_anchor div.metascore_w').text() || null;
+        const score = parseInt(_score, 10) || null;
+        const release_date = $element.find('td.clamp-summary-wrap div.clamp-details span').text() || null;
+        const _summary = $element.find('td.clamp-summary-wrap div.summary').text().split('\n' , 2) || null;
+        const summary = (_summary ? (_summary[0].includes('') ? String(_summary[1]).trim() : null) : null) || null;
+
+
+         if(id === null){
+           resolve({
+             title: title,
+             poster: poster,
+             summary: summary,
+             score: score,
+             release_date: release_date,
+             extra: null
+           });
+         }else{
+           const _id = `${BASE_URL}` + id;
+           const extra = await getMusicCriticReviews(_id);
+           resolve({
+             title: title,
+             poster: poster,
+             summary: summary,
+             score: score,
+             release_date: release_date,
+             extra: {
+               reviews: extra
+             }
+           });
+         }
+    })
+  ).get();
+  
+  return Promise.all(reviews);
+};
+
+export const getUpcomingAlbumReleases = async() =>{
+  const res = await req(`${BASE_URL}/browse/albums/release-date/coming-soon/metascore`);
+  const $ = load(res);
+
+  const UpcomingAlbum = $('body.skybox-auto-collapse div#site_layout div#gutters div#main div.releaseCalendar table.musicTable').eq(0).find('tbody tr')
+    .map((_index, element) => new Promise(async(resolve, _reject) =>{
+      try{
+        const $element = $(element);
+        let id = $element.find('td.artistName a').attr('href') || null
+        const artistName = $element.find('td.artistName a').text() || null
+        const albumTitle = $element.find('td.albumTitle').text() || null
+        if(id === null){
+          resolve({
+            artist_name: artistName,
+            album_title: albumTitle,
+            extra: null
+          });
+        }else{
+          const _id = `${BASE_URL}` + id;          
+          const extra = await getArtistInfo(_id);
+          resolve({
+            artist_name: artistName,
+            album_title: albumTitle,
+            extra: extra
+          });
+        }
+
+      }catch(err){
+        _reject(err)
+      }
+  })).get();
+
+  const AnticipatedAlbum = $('body.skybox-auto-collapse div#site_layout div#gutters div#main div.releaseCalendar table.musicTable').eq(1).find('tbody tr')
+    .map((_index, element) => new Promise(async(resolve, _reject) =>{
+      try{
+        const $element = $(element);
+        let id = $element.find('td.artistName a').attr('href') || null;
+        const artistName = $element.find('td.artistName a').text() || null;
+        const albumTitle = $element.find('td.albumTitle').text() || null;
+        const date = $element.find('td.dataComment').text() || null;
+
+        if(id === null){
+          resolve({
+            artist_name: artistName,
+            album_title: albumTitle,
+            extra: null
+          });
+        }else{
+          const _id = `${BASE_URL}` + id;
+          const extra = await getArtistInfo(_id);
+          resolve({
+            artist_name: artistName,
+            album_title: albumTitle,
+            extra: extra
+          });
+        }
+      }catch(err){
+        _reject(err)
+      }
+  })).get();
+
+  const upcoming_album = await Promise.all(UpcomingAlbum);
+  const anticipated_album = await Promise.all(AnticipatedAlbum);
+  const info = [{upcoming_album: upcoming_album, anticipated_album: anticipated_album}]
+
+  return Promise.all(info);
 };
 
 
@@ -291,6 +406,32 @@ const getGameInfoReview = async(id: string) =>{
   });
 }
 
+const getMusicCriticReviews = async(id: string) =>{
+  const res = await req(`${id}/critic-reviews`);
+  const $ = load(res);
+
+  const reviews = $('body.skybox-auto-collapse div#site_layout div#gutters div#main ol.reviews li.review div.review_content').map((_index, element) =>
+    new Promise((resolve, _reject) =>{
+      try{
+        const $element = $(element);
+        const review_critic = $element.find('div.review_section div.review_stats div.review_critic div.source a').text() || null;
+        const review_date = $element.find('div.review_section div.review_stats div.review_critic div.date').text() || null;
+        const review_grade = $element.find('div.review_section div.review_stats div.review_grade div.metascore_w').text() || null;
+        const review = $element.find('div.review_section div.review_body').text().trim() || null;
+        resolve({
+          review: review,
+          review_critic: review_critic,
+          review_date: review_date,
+          review_grade: review_grade
+        });
+      }catch(err){
+        _reject(err)
+      }
+  })).get();
+
+  return Promise.all(reviews);
+};
+
 const getTVCriticReviews = async(id: string) =>{
   const res = await req(`${id}/critic-reviews`);
   const $ = load(res);
@@ -372,3 +513,33 @@ const getGamesCriticReviews = async(id: string) =>{
 
   return  Promise.all(reviews);
 };
+
+const getArtistInfo = async(id: string) =>{
+  const res = await req(`${id}/critic-reviews`);
+  const $ = load(res);
+
+  const artistInfo = $('body.skybox-auto-collapse div#site_layout div#gutters div#main table.credits tbody tr')
+    .map((_index: number, element: CheerioElement) => new Promise((resolve, reject) =>{
+      try{
+        const $element = $(element);
+        const album_title = $element.find('td.title a').text();
+        const metascore = $element.find('td.title span.metascore_w').text();
+        const year = $element.find('td.year').text().trim();
+        const role = $element.find('td.role').text();
+        const user_score = $element.find('td.score span.data').text();
+        resolve({
+          album_title,
+          metascore,
+          year,
+          role,
+          user_score
+        });
+          
+      }catch(err){
+        reject(err);
+      }
+    })).get();
+
+    return Promise.all(artistInfo);
+};
+
