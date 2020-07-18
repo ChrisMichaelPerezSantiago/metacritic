@@ -37,7 +37,7 @@ More details in the next days / months.
   }
   await getGameReviews(options)
     .then(res => console.log(JSON.stringify(res[0], null, 2)))
-    .catch(e => console.log(e))
+    .catch(e => console.log(e));
 })();
 ```
 
@@ -237,7 +237,7 @@ Autumns of this world but awed by their endurance."
     sortBy: 'date'
   }
   await getTVReviews(options)
-    .then(res => console.log(JSON.stringify(res[0], null, 2)));
+    .then(res => console.log(JSON.stringify(res[0], null, 2)))
     .catch(e => console.log(e));
 })();
 ```
@@ -320,6 +320,152 @@ Autumns of this world but awed by their endurance."
     }
   ]
 }
+```
+
+
+##  getMusicReviews([options: MusicParamsOptions])
+
+|  @interface          | @member  |     @type     |  @values                                     |
+|----------------------|----------|:-------------:|---------------------------------------------:|
+|  MusicParamsOptions  | filterBy |  string       |  new-releases, available                     |
+|                      | sortBy   |  string       |  date, metascore, name, userscore            |
+
+```ts
+(async() =>{
+  const options = {
+    filterBy: 'new-releases',
+    sortBy: 'date'
+  }
+  await getMusicReviews(options)
+    .then(res => console.log(JSON.stringify(res[0], null, 2)))
+    .catch(e => console.log(e));
+})();
+```
+
+```json
+{
+  "title": "Gaslighter",
+  "poster": "https://static.metacritic.com/images/products/music/0/10e06538a7d484d2cd9e41a6b869b1c3-98.jpg",
+  "summary": "The first new studio album in 14 years for the country trio formerly known as the Dixie Chicks was produced with Jack Antonoff.",
+  "score": 86,
+  "release_date": "July 17, 2020",
+  "extra": {
+    "reviews": [
+      {
+        "review": "Stunning. ... With slick, tasteful production from Jack Antanoff built around shining guitars and perfectly balanced vocal arrangements, this is a powerful addition to the genre.",
+        "review_critic": "The Telegraph (UK)",
+        "review_date": "Jul 16, 2020",
+        "review_grade": "100"
+      },
+      {
+        "review": "By blending early-21st-century pop savvy with the storytelling that made country music so crucial to the American canon, Gaslighter is all fire and nerve, performed by three women whose musical bona fides are rivaled only by their rock-solid backbones.",
+        "review_critic": "Entertainment Weekly",
+        "review_date": "Jul 13, 2020",
+        "review_grade": "100"
+      },
+      {
+        "review": "Rather than impose an excess of ear candy (although it’s welcome on the few occasions in which it comes), Antonoff knew what he had on his hands here: an album in which each new incendiary lyrical moment seems to top the last, before grievance gives way to beautiful grief. Candor, take them away.",
+        "review_critic": "Variety",
+        "review_date": "Jul 16, 2020",
+        "review_grade": "93"
+      },
+      {
+        "review": "The management of tone throughout is also masterful and consistent. For all the shifting that occurs within individual songs, it’s always anchored to place by restrained instrumentation and artful, deliberate counterpoints between highs and lows.",
+        "review_critic": "Consequence of Sound",
+        "review_date": "Jul 17, 2020",
+        "review_grade": "91"
+      },
+      // .....
+    ]
+  }
+}
+```
+
+## getUpcomingAlbumReleases()
+**UPCOMING ALBUM RELEASE CALENDAR**
+All dates are for U.S. releases unless otherwise noted. Release dates are subject to change, and often do.
+
+**ANTICIPATED FUTURE RELEASES**
+These albums do not yet have a firm release date, but are in various stages of development. If an artist appears multiple times, that means multiple albums by that artist are forthcoming
+
+```ts
+(async() =>{
+  await getUpcomingAlbumReleases()
+    .then(res => console.log(JSON.stringify(res, null, 2)))
+    .catch(e => console.log(e));
+})();
+```
+
+```json
+[
+  {
+    "upcoming_album": [
+      {
+        "artist_name": null,
+        "album_title": null,
+        "extra": null
+      },
+      {
+        "artist_name": "Courtney Marie Andrews",
+        "album_title": "Old Flowers",
+        "extra": [
+          {
+            "album_title": "May Your Kindness Remain",
+            "metascore": "79",
+            "year": "Mar 23, 2018",
+            "role": "Primary Artist",
+            "user_score": "6.5"
+          },
+          {
+            "album_title": "Honest Life",
+            "metascore": "82",
+            "year": "Aug 19, 2016",
+            "role": "Primary Artist",
+            "user_score": "tbd"
+          }
+        ]
+      },
+      // .....
+    ],
+    "anticipated_album": [
+      {
+        "artist_name": "Adele",
+        "album_title": "[Title TBA]",
+        "extra": [
+          {
+            "album_title": "25",
+            "metascore": "75",
+            "year": "Nov 20, 2015",
+            "role": "Primary Artist",
+            "user_score": "7.6"
+          },
+          {
+            "album_title": "Live at the Royal Albert Hall",
+            "metascore": "76",
+            "year": "Nov 29, 2011",
+            "role": "Primary Artist",
+            "user_score": "7.9"
+          },
+          {
+            "album_title": "21",
+            "metascore": "76",
+            "year": "Feb 22, 2011",
+            "role": "Primary Artist",
+            "user_score": "8.1"
+          },
+          {
+            "album_title": "19",
+            "metascore": "68",
+            "year": "Jun 10, 2008",
+            "role": "Primary Artist",
+            "user_score": "7.7"
+          }
+        ]
+      },
+      // .....
+    ]
+  }
+]
 ```
 
 ## **:handshake: Contributing**
