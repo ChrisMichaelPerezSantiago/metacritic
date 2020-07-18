@@ -12,6 +12,9 @@
   <img src="https://img.shields.io/badge/Metacritic-API-blue.svg"/>
 </p>
 
+<p align="center">
+ <a href="https://nodei.co/npm/metacritic/"><img src="https://nodei.co/npm/metacritic.png"></a>
+</p>
 
 
 
