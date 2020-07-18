@@ -1,5 +1,5 @@
 {
-  "name": "metacritic",
+  "name": "unofficial-metacritic",
   "version": "1.0.0",
   "description": "  Metacritic API is a provider of compilations on reviews of music albums, video games, movies, television shows, DVDs and books.",
   "main": "build/main/index.js",
