@@ -12,6 +12,11 @@
   <img src="https://img.shields.io/badge/Metacritic-API-blue.svg"/>
 </p>
 
+<p align="center">
+ <a href="https://nodei.co/npm/unofficial-metacritic/"><img src="https://nodei.co/npm/unofficial-metacritic.png"></a>
+</p>
+
+
 
 
 ## 🚧 Project in development
