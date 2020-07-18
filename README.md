@@ -36,7 +36,7 @@ More details in the next days / months.
     sortBy: 'date'
   }
   await getGameReviews(options)
-    .then(res => console.log(JSON.stringify(res, null, 2)))
+    .then(res => console.log(JSON.stringify(res[0], null, 2)))
     .catch(e => console.log(e))
 })();
 ```
@@ -112,6 +112,109 @@ More details in the next days / months.
           "review_critic": "ZTGD",
           "review_date": "Jul 14, 2020",
           "review_grade": "100"
+        },
+        // .....
+      ]
+    }
+  ]
+}
+```
+
+
+## getMoviesReviews([options: MoviesParamsOptions])
+
+|  @interface          | @member  |     @type     |  @values          |
+|----------------------|----------|:-------------:|------------------:|
+|  MoviesParamsOptions | year     |  string       |  [2020 - 1916]    |
+
+
+```ts
+(async() =>{
+  const options = {
+    year: '2020'
+  }
+  await getMoviesReviews(options)
+    .then(res => console.log(JSON.stringify(res[0], null, 2)))
+    .catch(e => console.log(e));
+})();
+```
+
+```json
+{
+  "title": "Never Rarely Sometimes Always",
+  "poster": "https://static.metacritic.com/images/products/movies/7/1824c3f3bcfbb9631dff46a5dd83e613-98.jpg",
+  "summary": "Faced with an unintended pregnancy and a lack of local support, Autumn (Sidney Flanigan) and her cousin Skylar (Talia Ryder) embark across state lines to New York City on a fraught journey of friendship, bravery and compassion",
+  "score": 91,
+  "release_date": "March 13, 2020",
+  "rating": "Not Rated",
+  "extra": [
+    {
+      "info": [
+        {
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "bestRating": "100",
+            "worstRating": "0",
+            "ratingValue": "91",
+            "ratingCount": "34"
+          },
+          "contentRating": "Not Rated",
+          "duration": "PT101M",
+          "actor": [
+            {
+              "@type": "Person",
+              "name": "Amy Tribbey",
+              "url": "https://www.metacritic.com/person/amy-tribbey"
+            },
+            {
+              "@type": "Person",
+              "name": "Aurora Richards",
+              "url": "https://www.metacritic.com/person/aurora-richards"
+            },
+            {
+              "@type": "Person",
+              "name": "Brett Puglisi",
+              "url": "https://www.metacritic.com/person/brett-puglisi"
+            },
+            // .....
+          ],
+          "publisher": [
+            {
+              "@type": "Organization",
+              "name": "Focus Features",
+              "url": "https://www.metacritic.com/company/focus-features"
+            }
+          ],
+          "genre": [
+            "Drama"
+          ]
+        }
+      ],
+      "videos": {
+        "trailer": "https://video.internetvideoarchive.net/video.mp4?cmd=6&fmt=4&customerid=654126&publishedid=633964&e=2208902400&videokbrate=1500&h=053ef63e783fd35b96c4cae49e0d995c"
+      },
+      "reviews": [
+        {
+          "author": "Ann Hornaday",
+          "review_critic": "Washington Post",
+          "review_date": "Apr  1, 2020",
+          "review_grade": "100",
+          "review": "With empathy and outrage that cut equally deeply, Hittman reminds us: This is a girl’s life in a man’s world."
+        },
+        {
+          "author": "Ty Burr",
+          "review_critic": "Boston Globe",
+          "review_date": "Apr  1, 2020",
+          "review_grade": "100",
+          "review": "The performance of Flanagan, a first-time actress, is both harrowing and possessed of an eloquence that has no need for words. You come away from this movie weeping for the 
+Autumns of this world but awed by their endurance."
+        },
+        {
+          "author": "Manohla Dargis",
+          "review_critic": "The New York Times",
+          "review_date": "Mar 12, 2020",
+          "review_grade": "100",
+          "review": "In “Never Rarely,” the hurdles to an abortion are as legion as they are maddening and pedestrian, a blunt political truism that Hittman brilliantly connects to women’s fight for emancipation."
         },
         // .....
       ]
