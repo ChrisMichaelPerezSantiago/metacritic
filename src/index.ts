@@ -2,12 +2,9 @@ import { load } from 'cheerio'
 import { req } from './utils/index';
 import { BASE_URL } from './urls/index';
 import { GamesParamsOptions } from './interfaces/games'
+import { MoviesParamsOptions } from './interfaces/movies';
 
 
-
-// filter    => [new-releases, coming-soon, available]
-// platform  => [ps4, xboxone, switch, pc, ios, playstation-5, stadia, xbox-series-x]
-// sortBy    => [date, metascore, name, userscore]
 export const getGameReviews = async(options: GamesParamsOptions) =>{
   const res = await req(`${BASE_URL}/browse/games/release-date/${options.filterBy}/${options.platform}/${options.sortBy}`);
   const $ = load(res);
@@ -57,18 +54,102 @@ export const getGameReviews = async(options: GamesParamsOptions) =>{
   return Promise.all(reviews);
 };
 
+export const getMoviesReviews = async(options: MoviesParamsOptions) =>{
+  const res = await req(`${BASE_URL}/browse/movies/score/metascore/year/filtered?year_selected=${options.year}&sort=desc&view=detailed`);
+  const $ = load(res);
 
-//(async() =>{
-//  const options = {
-//    filterBy: 'new-releases',
-//    platform: 'ps4',
-//    sortBy: 'date'
-//  }
-//  await getGameReviews(options)
-//    .then(res => console.log(JSON.stringify(res[0], null, 2)))
-//    .catch(e => console.log(e))
-//})();
+  let reviews = $('body.skybox-auto-collapse div#page table.clamp-list tbody tr').map((_index: number, element: CheerioElement) => 
+    new Promise(async(resolve, _reject) =>{
+        const $element = $(element);
+        const poster = $element.find('td.clamp-image-wrap a img').attr('src') || null;
+        let id = $element.find('td.clamp-summary-wrap a.title').attr('href') || null;
+        const title = $element.find('td.clamp-summary-wrap a.title h3').text() || null;
+        const _score = $element.find('td.clamp-summary-wrap div.clamp-score-wrap a.metascore_anchor div.metascore_w').text() || null;
+        const score = parseInt(_score, 10) || null;
+        const d = $element.find('td.clamp-summary-wrap div.clamp-details span').text().split('|') || null;
+        const release_date = d ? String(d[0]).trim() : null;
+        const rating = d ? String(d[1]).trim() : null 
+        const _summary = $element.find('td.clamp-summary-wrap div.summary').text().split('\n' , 2) || null;
+        const summary = (_summary ? (_summary[0].includes('') ? String(_summary[1]).trim() : null) : null) || null;
+        
+        if(id === null){
+          resolve({
+            title: title,
+            poster: poster,
+            summary: summary,
+            score: score,
+            release_date: release_date,
+            rating: rating,
+            extra: null
+          });
+        }else{
+          const _id = `${BASE_URL}` + id;
+          const extra =  await getMoviesInfoReview(_id);
+          resolve({
+            title: title,
+            poster: poster,
+            summary: summary,
+            score: score,
+            release_date: release_date,
+            rating: rating,
+            extra: extra
+          });
+        }
+    })
+  ).get();
 
+  return Promise.all(reviews);
+};
+
+
+
+
+
+
+const getMoviesInfoReview = async(id: string) =>{
+  const res = await req(id);
+  const $ = load(res);
+
+  return new Promise(async(resolve, reject) =>{
+    try{
+      const info = [];
+      $('body.skybox-auto-collapse div#page div#content_header_wrapper div#main_content').each((_index, element) =>{
+        const $element = $(element);
+        let json = JSON.parse($element.find('div.movie script').attr("type","application/ld+json").html()) || null
+        if(json !== null){
+          const aggregateRating = json.aggregateRating || null;
+          const contentRating = json.contentRating || null;
+          const duration = json.duration || null;
+          const director = json.director || null;
+          const actor = json.actor || null;
+          const publisher = json.publisher || null;
+          const genre = json.genre || null;
+          info.push({
+            aggregateRating: aggregateRating,
+            contentRating: contentRating,
+            duration: duration,
+            actor: actor,
+            publisher: publisher,
+            genre: genre
+          });
+        }else{
+          json = null;
+          info.push({});
+        }
+      });
+
+      const video = $('body.skybox-auto-collapse div#page div#content_header_wrapper div#main_content table.maskedauto tbody tr td.maskedcenter table tbody tr td.gu7 div.maskedcol div.video_wrapper div.video_and_autoplay div#videoContainer_wrapper').attr('data-mcvideourl');
+      const trailer = {trailer: video ? video : {}}
+      const reviews = await getMoviesCriticReviews(id);
+      const full_review = [{info: info, videos: trailer, reviews: reviews}];
+      
+      resolve(full_review);
+
+    }catch(err){
+      reject(err)
+    }
+  });
+}
 
 const getGameInfoReview = async(id: string) =>{
   const res = await req(id);
@@ -128,6 +209,33 @@ const getGameInfoReview = async(id: string) =>{
   });
 }
 
+const getMoviesCriticReviews = async(id: string) =>{
+  const res = await req(`${id}/critic-reviews`);
+  const $ = load(res);
+
+  const reviews = $('body.skybox-auto-collapse div#page div#main_content div.list div.critic_reviews div.review').map((_index, element) =>
+    new Promise((resolve, _reject) =>{
+      try{
+        const $element = $(element);
+        const review_critic = $element.find('div.right div.title span.source a img.pub-img').attr('title');
+        const author = $element.find('div.right div.title span.author a').text().trim();
+        const review_date = $element.find('div.right div.title span.date').text() || null;
+        const review_grade = $element.find('div.left div.metascore_w').text() || null;
+        const review = $element.find('div.right div.summary a.no_hover').text().trim() || null;
+        resolve({
+          author: author,
+          review_critic: review_critic,
+          review_date: review_date,
+          review_grade: review_grade,
+          review: review,
+        });
+      }catch(err){
+        _reject(err)
+      }
+  })).get();
+
+  return Promise.all(reviews);
+};
 
 const getGamesCriticReviews = async(id: string) =>{
   const res = await req(`${id}/critic-reviews`);
@@ -152,6 +260,5 @@ const getGamesCriticReviews = async(id: string) =>{
       }
   })).get();
 
-
   return  Promise.all(reviews);
-}
+};
