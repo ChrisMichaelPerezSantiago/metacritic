@@ -223,6 +223,104 @@ Autumns of this world but awed by their endurance."
 }
 ```
 
+## getTVReviews([options: TVParamsOptions])
+
+|  @interface          | @member  |     @type     |  @values                                     |
+|----------------------|----------|:-------------:|---------------------------------------------:|
+|  TVParamsOptions     | filterBy |  string       |  new-series, special-event, returning-series |
+|                      | sortBy   |  string       |  date, metascore, name, userscore            |
+
+```ts
+(async() =>{
+  const options = {
+    filterBy: 'new-series', 
+    sortBy: 'date'
+  }
+  await getTVReviews(options)
+    .then(res => console.log(JSON.stringify(res[0], null, 2)));
+    .catch(e => console.log(e));
+})();
+```
+
+```json
+{
+  "title": "Love Fraud: Season 1",
+  "poster": "https://static.metacritic.com/images/products/tv/2/1fce01360441a2ecabe94f05b235b098-98.jpg",
+  "summary": "The four-part documentary series from Rachel Grady and Heidi Ewing follows the victims defrauded by conman Richard Scott Smith as they band together to seek justice by finding him before he steals another woman's money and disappears again.",
+  "score": null,
+  "release_date": "August 30, 2020",
+  "extra": [
+    {
+      "info": [
+        {
+          "numberOfEpisodes": "4",
+          "publisher": [
+            {
+              "@type": "Organization",
+              "name": "SHOWTIME",
+              "url": "https://www.metacritic.com/company/showtime"
+            }
+          ],
+          "genre": [
+            "Movie/Mini-Series",
+            "Documentary"
+          ],
+          "episode": [
+            {
+              "@type": "TVEpisode",
+              "name": "Episode 4",
+              "url": "https://www.metacritic.com/tv/love-fraud/season-1/episode-4-episode-4-1048046",
+              "episodeNumber": "4",
+              "description": "",
+              "datePublished": "November 30, -0001"
+            },
+            {
+              "@type": "TVEpisode",
+              "name": "Episode 3",
+              "url": "https://www.metacritic.com/tv/love-fraud/season-1/episode-3-episode-3-1048045",
+              "episodeNumber": "3",
+              "description": "",
+              "datePublished": "November 30, -0001"
+            },
+            {
+              "@type": "TVEpisode",
+              "name": "Episode 2",
+              "url": "https://www.metacritic.com/tv/love-fraud/season-1/episode-2-episode-2-1048044",
+              "episodeNumber": "2",
+              "description": "",
+              "datePublished": "November 30, -0001"
+            },
+            {
+              "@type": "TVEpisode",
+              "name": "Episode 1",
+              "url": "https://www.metacritic.com/tv/love-fraud/season-1/episode-1-episode-1-1048043",
+              "episodeNumber": "1",
+              "description": "",
+              "datePublished": "November 30, -0001"
+            }
+          ]
+        }
+      ],
+      "reviews": [
+        {
+          "review": "Excellent. ... Ewing and Grady deftly slide back and forth between the history of Smith and the immediate hunt to find him. What results is a remarkable momentum that builds up as you get angrier and angrier at this loathsome human being and become more involved in his capture.",
+          "review_critic": "RogerEbert.com",
+          "author": "Brian Tallerico",
+          "review_date": "Jan 28, 2020",
+          "review_grade": "90"
+        },
+        {
+          "review": "It starts off in a lot of places that seem familiar, but every time you become too complacent in your expectations, Love Fraud detours and the resulting series is sad, distressing and filled with enough Midwestern weirdness for a Coen Brothers movie.",
+          "review_critic": "The Hollywood Reporter",
+          "author": "Dan Fienberg",
+          "review_date": "Jan 24, 2020",
+          "review_grade": "70"
+        }
+      ]
+    }
+  ]
+}
+```
 
 ## **:handshake: Contributing**
 
