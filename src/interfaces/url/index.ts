@@ -1,17 +1,16 @@
-
 /**
  *  Interface URLOptions
  *  @interface
- *  @classdesc Cloudscraper request's options
+ *  @classdesc axios request's options
  */
 export interface URLOptions {
   /**
-   * @member {string} uri URL
+   * @member {string} url URL
    */
-  uri: string;
+  url: string;
 
   /**
    * @member {string} method HTTP Method (GET)
    */
   method: string;
-};
+}

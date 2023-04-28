@@ -1,19 +1,18 @@
-import cloudscraper from 'cloudscraper';
-import {
-  URLOptions
-} from '../interfaces/url';
+import axios from "axios";
+import { URLOptions } from "../interfaces/url";
 
-export const req = (url: string): Promise<any> =>{
-  return new Promise(async(resolve, reject) =>{
+export const req = (url: string): Promise<any> => {
+  return new Promise(async (resolve, reject) => {
     try {
       const options: URLOptions = {
-        uri: url,
-        method: 'GET'
+        url: url,
+        method: "GET",
       };
-      const res = await cloudscraper(options)
-      resolve(res);
+      const { data } = await axios(options);
+
+      resolve(data);
     } catch (err) {
-      reject(err)
+      reject(err);
     }
-  })
+  });
 };

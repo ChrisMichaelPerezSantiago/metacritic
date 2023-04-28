@@ -1,6 +1,6 @@
 'use strict';
-const meow = require('meow');
 const path = require('path');
+const meow = require('meow');
 
 const tsFile = getTSFile();
 const jsFile = TS2JS(tsFile);

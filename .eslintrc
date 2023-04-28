@@ -1,0 +1,33 @@
+{
+  "extends": "@antfu",
+  "ignorePatterns": [
+    "**/*.ts"
+  ],
+  "rules": {
+    "no-console": "off",
+    "semi": "off",
+    "operator-linebreak": "off",
+    "@typescript-eslint/indent": [
+      "off"
+    ],
+    "@typescript-eslint/semi": [
+      "off"
+    ],
+    "quotes": "off",
+    "@typescript-eslint/quotes": [
+      "off"
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "off"
+    ],
+    "no-async-promise-executor": "off",
+    "brace-style": "off",
+    "@typescript-eslint/brace-style": [
+      "off"
+    ],
+    "comma-dangle": "off",
+    "@typescript-eslint/comma-dangle": [
+      "off"
+    ]
+  }
+}

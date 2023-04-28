@@ -1,22 +1,33 @@
+type filterBy = "new-releases" | "coming-soon" | "available";
+
+type platform =
+  | "ps5"
+  | "ps4"
+  | "xbox-series-x"
+  | "xboxone"
+  | "switch"
+  | "pc"
+  | "ios"
+  | "stadia";
+
+type sortBy = "date" | "metascore" | "name" | "userscore";
 
 /**
  *  Interface GamesParamsOptions
  *  @interface
  *  @classdesc URL parameter options
  */
-export interface GamesParamsOptions{
+export interface GamesParamsOptions {
   /**
-   * @member {string} filterBy
+   * @member {filterBy} filterBy
    */
-  filterBy: string,
-   /**
-   * @member {string} platform
+  filterBy: filterBy;
+  /**
+   * @member {platform} platform
    */
-  platform: string,
-   /**
-   * @member {string} sortBy
+  platform: platform;
+  /**
+   * @member {sortBy} sortBy
    */
-  sortBy: string
-};
-
-
+  sortBy: sortBy;
+}

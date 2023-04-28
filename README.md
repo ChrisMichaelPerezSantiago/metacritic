@@ -29,11 +29,11 @@ More details in the next days / months.
 |  @interface          | @member  |     @type     |  @values                                                               |
 |----------------------|----------|:-------------:|-----------------------------------------------------------------------:|
 |  GamesParamsOptions  | filterBy |  string       |  new-releases, coming-soon, available                                  |
-|                      | platform |  string       |  ps4, xboxone, switch, pc, ios, playstation-5, stadia, xbox-series-x   |
+|                      | platform |  string       |  ps5, ps4, xbox-series-x, xboxone, switch, pc, ios, stadia  |
 |                      | sortBy   |  string       |  date, metascore, name, userscore                                      |
 
 ```ts
-(async() =>{
+(async () => {
   const options = {
     filterBy: 'new-releases',
     platform: 'ps4',
@@ -116,7 +116,7 @@ More details in the next days / months.
           "review_critic": "ZTGD",
           "review_date": "Jul 14, 2020",
           "review_grade": "100"
-        },
+        }
         // .....
       ]
     }
@@ -133,7 +133,7 @@ More details in the next days / months.
 
 
 ```ts
-(async() =>{
+(async () => {
   const options = {
     year: '2020'
   }
@@ -179,7 +179,7 @@ More details in the next days / months.
               "@type": "Person",
               "name": "Brett Puglisi",
               "url": "https://www.metacritic.com/person/brett-puglisi"
-            },
+            }
             // .....
           ],
           "publisher": [
@@ -210,8 +210,7 @@ More details in the next days / months.
           "review_critic": "Boston Globe",
           "review_date": "Apr  1, 2020",
           "review_grade": "100",
-          "review": "The performance of Flanagan, a first-time actress, is both harrowing and possessed of an eloquence that has no need for words. You come away from this movie weeping for the 
-Autumns of this world but awed by their endurance."
+          "review": "The performance of Flanagan, a first-time actress, is both harrowing and possessed of an eloquence that has no need for words. You come away from this movie weeping for the Autumns of this world but awed by their endurance."
         },
         {
           "author": "Manohla Dargis",
@@ -219,7 +218,7 @@ Autumns of this world but awed by their endurance."
           "review_date": "Mar 12, 2020",
           "review_grade": "100",
           "review": "In “Never Rarely,” the hurdles to an abortion are as legion as they are maddening and pedestrian, a blunt political truism that Hittman brilliantly connects to women’s fight for emancipation."
-        },
+        }
         // .....
       ]
     }
@@ -235,9 +234,9 @@ Autumns of this world but awed by their endurance."
 |                      | sortBy   |  string       |  date, metascore, name, userscore            |
 
 ```ts
-(async() =>{
+(async () => {
   const options = {
-    filterBy: 'new-series', 
+    filterBy: 'new-series',
     sortBy: 'date'
   }
   await getTVReviews(options)
@@ -335,7 +334,7 @@ Autumns of this world but awed by their endurance."
 |                      | sortBy   |  string       |  date, metascore, name, userscore            |
 
 ```ts
-(async() =>{
+(async () => {
   const options = {
     filterBy: 'new-releases',
     sortBy: 'date'
@@ -378,7 +377,7 @@ Autumns of this world but awed by their endurance."
         "review_critic": "Consequence of Sound",
         "review_date": "Jul 17, 2020",
         "review_grade": "91"
-      },
+      }
       // .....
     ]
   }
@@ -393,7 +392,7 @@ All dates are for U.S. releases unless otherwise noted. Release dates are subjec
 These albums do not yet have a firm release date, but are in various stages of development. If an artist appears multiple times, that means multiple albums by that artist are forthcoming
 
 ```ts
-(async() =>{
+(async () => {
   await getUpcomingAlbumReleases()
     .then(res => console.log(JSON.stringify(res, null, 2)))
     .catch(e => console.log(e));
@@ -428,7 +427,7 @@ These albums do not yet have a firm release date, but are in various stages of d
             "user_score": "tbd"
           }
         ]
-      },
+      }
       // .....
     ],
     "anticipated_album": [
@@ -465,7 +464,7 @@ These albums do not yet have a firm release date, but are in various stages of d
             "user_score": "7.7"
           }
         ]
-      },
+      }
       // .....
     ]
   }
