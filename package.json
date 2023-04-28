@@ -1,7 +1,7 @@
 {
   "name": "unofficial-metacritic",
   "type": "module",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "  Metacritic API is a provider of compilations on reviews of music albums, video games, movies, television shows, DVDs and books.",
   "license": "MIT",
   "repository": "https://github.com/ChrisMichaelPerezSantiago/metacritic",
