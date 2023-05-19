@@ -1,15 +1,18 @@
 import { load } from "cheerio";
-import { req } from "./utils";
 import { BASE_URL } from "./urls";
 import { GamesParamsOptions } from "./interfaces/games";
 import { MoviesParamsOptions } from "./interfaces/movies";
 import { TVParamsOptions } from "./interfaces/tv";
 import { MusicParamsOptions } from "./interfaces/music";
+import request from "./request";
 
-export const getGameReviews = async (options: GamesParamsOptions) => {
-  const res = await req(
-    `${BASE_URL}/browse/games/release-date/${options.filterBy}/${options.platform}/${options.sortBy}`
-  );
+export async function getGameReviews(options: GamesParamsOptions) {
+  const requestOpt = {
+    url: `${BASE_URL}/browse/games/release-date/${options.filterBy}/${options.platform}/${options.sortBy}`,
+    method: "get",
+  };
+
+  const res = await request(requestOpt);
   const $ = load(res);
 
   let reviews = $(
@@ -81,12 +84,14 @@ export const getGameReviews = async (options: GamesParamsOptions) => {
     .get();
 
   return Promise.all(reviews);
-};
+}
 
-export const getMoviesReviews = async (options: MoviesParamsOptions) => {
-  const res = await req(
-    `${BASE_URL}/browse/movies/score/metascore/year/filtered?year_selected=${options.year}&sort=desc&view=detailed`
-  );
+export async function getMoviesReviews(options: MoviesParamsOptions) {
+  const requestOpts = {
+    url: `${BASE_URL}/browse/movies/score/metascore/year/filtered?year_selected=${options.year}&sort=desc&view=detailed`,
+    method: "get",
+  };
+  const res = await request(requestOpts);
   const $ = load(res);
 
   let reviews = $(
@@ -156,12 +161,15 @@ export const getMoviesReviews = async (options: MoviesParamsOptions) => {
     .get();
 
   return Promise.all(reviews);
-};
+}
 
-export const getTVReviews = async (options: TVParamsOptions) => {
-  const res = await req(
-    `${BASE_URL}/browse/tv/release-date/${options.filterBy}/${options.sortBy}`
-  );
+export async function getTVReviews(options: TVParamsOptions) {
+  const requestOpts = {
+    url: `${BASE_URL}/browse/tv/release-date/${options.filterBy}/${options.sortBy}`,
+    method: "get",
+  };
+
+  const res = await request(requestOpts);
   const $ = load(res);
 
   let reviews = $(
@@ -226,12 +234,15 @@ export const getTVReviews = async (options: TVParamsOptions) => {
     .get();
 
   return Promise.all(reviews);
-};
+}
 
-export const getMusicReviews = async (options: MusicParamsOptions) => {
-  const res = await req(
-    `${BASE_URL}/browse/albums/release-date/${options.filterBy}/${options.sortBy}`
-  );
+export async function getMusicReviews(options: MusicParamsOptions) {
+  const requestOpts = {
+    url: `${BASE_URL}/browse/albums/release-date/${options.filterBy}/${options.sortBy}`,
+    method: "get",
+  };
+
+  const res = await request(requestOpts);
   const $ = load(res);
 
   let reviews = $(
@@ -298,12 +309,15 @@ export const getMusicReviews = async (options: MusicParamsOptions) => {
     .get();
 
   return Promise.all(reviews);
-};
+}
 
-export const getUpcomingAlbumReleases = async () => {
-  const res = await req(
-    `${BASE_URL}/browse/albums/release-date/coming-soon/metascore`
-  );
+export async function getUpcomingAlbumReleases() {
+  const requestOpts = {
+    url: `${BASE_URL}/browse/albums/release-date/coming-soon/metascore`,
+    method: "get",
+  };
+
+  const res = await request(requestOpts);
   const $ = load(res);
 
   const UpcomingAlbum = $(
@@ -385,10 +399,15 @@ export const getUpcomingAlbumReleases = async () => {
   ];
 
   return Promise.all(info);
-};
+}
 
 const getTVInfoReview = async (id: string) => {
-  const res = await req(id);
+  const requestOpts = {
+    url: id,
+    method: "get",
+  };
+
+  const res = await request(requestOpts);
   const $ = load(res);
 
   return new Promise(async (resolve, reject) => {
@@ -439,7 +458,11 @@ const getTVInfoReview = async (id: string) => {
 };
 
 const getMoviesInfoReview = async (id: string) => {
-  const res = await req(id);
+  const requestOpts = {
+    url: id,
+    method: "get",
+  };
+  const res = await request(requestOpts);
   const $ = load(res);
 
   return new Promise(async (resolve, reject) => {
@@ -500,7 +523,11 @@ const getMoviesInfoReview = async (id: string) => {
 };
 
 const getGameInfoReview = async (id: string) => {
-  const res = await req(id);
+  const requestOpts = {
+    url: id,
+    method: "get",
+  };
+  const res = await request(requestOpts);
   const $ = load(res);
 
   return new Promise(async (resolve, reject) => {
@@ -577,7 +604,12 @@ const getGameInfoReview = async (id: string) => {
 };
 
 const getMusicCriticReviews = async (id: string) => {
-  const res = await req(`${id}/critic-reviews`);
+  const requestOpts = {
+    url: `${id}/critic-reviews`,
+    method: "get",
+  };
+
+  const res = await request(requestOpts);
   const $ = load(res);
 
   const reviews = $(
@@ -628,7 +660,12 @@ const getMusicCriticReviews = async (id: string) => {
 };
 
 const getTVCriticReviews = async (id: string) => {
-  const res = await req(`${id}/critic-reviews`);
+  const requestOpts = {
+    url: `${id}/critic-reviews`,
+    method: "get",
+  };
+
+  const res = await request(requestOpts);
   const $ = load(res);
 
   const reviews = $(
@@ -686,7 +723,12 @@ const getTVCriticReviews = async (id: string) => {
 };
 
 const getMoviesCriticReviews = async (id: string) => {
-  const res = await req(`${id}/critic-reviews`);
+  const requestOpts = {
+    url: `${id}/critic-reviews`,
+    method: "get",
+  };
+
+  const res = await request(requestOpts);
   const $ = load(res);
 
   const reviews = $(
@@ -729,7 +771,12 @@ const getMoviesCriticReviews = async (id: string) => {
 };
 
 const getGamesCriticReviews = async (id: string) => {
-  const res = await req(`${id}/critic-reviews`);
+  const requestOpts = {
+    url: `${id}/critic-reviews`,
+    method: "get",
+  };
+
+  const res = await request(requestOpts);
   const $ = load(res);
 
   const reviews = $(
@@ -780,7 +827,12 @@ const getGamesCriticReviews = async (id: string) => {
 };
 
 const getArtistInfo = async (id: string) => {
-  const res = await req(`${id}/critic-reviews`);
+  const requestOpts = {
+    url: `${id}/critic-reviews`,
+    method: "get",
+  };
+
+  const res = await request(requestOpts);
   const $ = load(res);
 
   const artistInfo = $(
