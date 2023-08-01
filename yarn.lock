@@ -3190,9 +3190,9 @@ pluralize@^8.0.0:
   integrity sha512-Nc3IT5yHzflTfbjgqWcCPpo7DaKy4FnpB0l/zCAW0Tc7jxAiuqSxHasntB3D7887LSrA93kDJ9IXovxJYxyLCA==
 
 pnpm@^8.1.1:
-  version "8.5.1"
-  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-8.5.1.tgz#97019f5a8ec2416123506419ab36dd558e4c72eb"
-  integrity sha512-W6elL7Nww0a/MCICkzpkbxW6f99TQuX4DuJoDjWp39X08PKDkEpg4cgj3d6EtgYADcdQWl/eM8NdlLJVE3RgpA==
+  version "8.6.8"
+  resolved "https://registry.yarnpkg.com/pnpm/-/pnpm-8.6.8.tgz#8cdbb177109be4e1c498126fa24a9dc811e80eea"
+  integrity sha512-OtrCRUE7VqRyKly9E3gfExZHOAHtFDpmulyVFKrnl3v/n2xJckdueVumWJqUA5FHxcRP/T42r8P8CDr9duPP9w==
 
 postcss-selector-parser@^6.0.9:
   version "6.0.13"
