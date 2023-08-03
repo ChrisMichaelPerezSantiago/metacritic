@@ -3202,10 +3202,10 @@ postcss-selector-parser@^6.0.9:
     cssesc "^3.0.0"
     util-deprecate "^1.0.2"
 
-postcss@^8.4.23:
-  version "8.4.23"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.23.tgz#df0aee9ac7c5e53e1075c24a3613496f9e6552ab"
-  integrity sha512-bQ3qMcpF6A/YjR55xtoTr0jGOlnPOKAIMdOWiv0EIT6HVPEaJiJB4NLljSbiHoC2RX7DN5Uvjtpbg1NPdwv1oA==
+postcss@^8.4.21, postcss@^8.4.23:
+  version "8.4.27"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.27.tgz#234d7e4b72e34ba5a92c29636734349e0d9c3057"
+  integrity sha512-gY/ACJtJPSmUFPDCHtX78+01fHa64FaU4zaaWfuh1MhGJISufJAH4cun6k/8fwsHYeK4UQmENQK+tRLCFJE8JQ==
   dependencies:
     nanoid "^3.3.6"
     picocolors "^1.0.0"
@@ -3374,10 +3374,10 @@ rollup-plugin-dts@^5.3.0:
   optionalDependencies:
     "@babel/code-frame" "^7.18.6"
 
-rollup@^3.20.2, rollup@^3.21.0:
-  version "3.22.0"
-  resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.22.0.tgz#e6671baebdd473154ac7998bbc57faabcd7bba20"
-  integrity sha512-imsigcWor5Y/dC0rz2q0bBt9PabcL3TORry2hAa6O6BuMvY71bqHyfReAz5qyAqiQATD1m70qdntqBfBQjVWpQ==
+rollup@^3.18.0, rollup@^3.20.2, rollup@^3.21.0:
+  version "3.27.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-3.27.0.tgz#15bd07e2e1cbfa9255bf6a3f04a432621c2f3550"
+  integrity sha512-aOltLCrYZ0FhJDm7fCqwTjIUEVjWjcydKBV/Zeid6Mn8BWgDCUBBWT5beM5ieForYNo/1ZHuGJdka26kvQ3Gzg==
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -3920,7 +3920,7 @@ vite-node@0.29.8:
     picocolors "^1.0.0"
     vite "^3.0.0 || ^4.0.0"
 
-"vite@^3.0.0 || ^4.0.0", vite@^4.2.1:
+"vite@^3.0.0 || ^4.0.0":
   version "4.3.8"
   resolved "https://registry.yarnpkg.com/vite/-/vite-4.3.8.tgz#70cd6a294ab52d7fb8f37f5bc63d117dd19e9918"
   integrity sha512-uYB8PwN7hbMrf4j1xzGDk/lqjsZvCDbt/JC5dyfxc19Pg8kRm14LinK/uq+HSLNswZEoKmweGdtpbnxRtrAXiQ==
@@ -3928,6 +3928,18 @@ vite-node@0.29.8:
     esbuild "^0.17.5"
     postcss "^8.4.23"
     rollup "^3.21.0"
+  optionalDependencies:
+    fsevents "~2.3.2"
+
+vite@^4.2.1:
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-4.2.3.tgz#067ada47ebd52e078d014bf1f92badda9d10564d"
+  integrity sha512-kLU+m2q0Y434Y1kCy3TchefAdtFso0ILi0dLyFV8Us3InXTU11H/B5ZTqCKIQHzSKNxVG/yEx813EA9f1imQ9A==
+  dependencies:
+    esbuild "^0.17.5"
+    postcss "^8.4.21"
+    resolve "^1.22.1"
+    rollup "^3.18.0"
   optionalDependencies:
     fsevents "~2.3.2"
 
